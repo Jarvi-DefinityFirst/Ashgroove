@@ -1,0 +1,1 @@
+import"./chunk-DRSDQDGF.js";var t=[{path:"",loadComponent:()=>import("./chunk-PRV54AAV.js").then(o=>o.StaffManagmentComponent)},{path:"agregar",loadComponent:()=>import("./chunk-FB3WEXT7.js").then(o=>o.AddUserComponent)},{path:"editar/:id",loadComponent:()=>import("./chunk-YZ5AVSMX.js").then(o=>o.EditUserComponent)}];export{t as routes};
