@@ -1,0 +1,19 @@
+<div *ngIf="procedimiento" class="container mt-4">
+  <h2 class="mb-3">Procedure Detail</h2>
+
+  <ul class="list-group mb-4">
+    <li class="list-group-item"><strong>ID:</strong> {{ procedimiento.id }}</li>
+    <li class="list-group-item"><strong>Name:</strong> {{ procedimiento.name }}</li>
+    <li class="list-group-item"><strong>Category:</strong> {{ procedimiento.category }}</li>
+    <li class="list-group-item"><strong>Created By:</strong> {{ procedimiento.user }}</li>
+    <li class="list-group-item"><strong>Modification date:</strong> {{ procedimiento.modificationDate }}</li>
+  </ul>
+
+  <h5 class="mb-2">Content</h5>
+  <pdf-viewer
+    [src]="procedimiento.content"
+    [render-text]="true"
+    [show-all]="true"
+    style="height: 500px; display: block;"
+  ></pdf-viewer>
+</div>

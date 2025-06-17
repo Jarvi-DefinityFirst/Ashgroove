@@ -1,0 +1,49 @@
+<c-card>
+    <c-card-header>
+      <strong>Editar usuario</strong>
+    </c-card-header>
+    <c-card-body>
+      <form #userForm="ngForm" (ngSubmit)="guardar(userForm)">
+        <div class="mb-3">
+          <label>Nombre</label>
+          <input type="text" class="form-control" name="name" [(ngModel)]="user.name" required />
+        </div>
+  
+        <div class="mb-3">
+          <label>Puesto</label>
+          <input type="text" class="form-control" name="position" [(ngModel)]="user.position" required />
+        </div>
+  
+        <div class="mb-3">
+          <label>Rol</label>
+          <select class="form-control" name="role" [(ngModel)]="user.role" required>
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+          </select>
+        </div>
+  
+        <div class="mb-3">
+          <label>Correo</label>
+          <input type="email" class="form-control" name="email" [(ngModel)]="user.email" required />
+        </div>
+  
+        <div class="mb-3">
+          <label>Contraseña</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="user.password" required />
+        </div>
+  
+        <div class="mb-3">
+          <label>Avatar</label>
+          <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*" />
+          <div *ngIf="imagePreview" class="mt-2">
+            <img [src]="imagePreview" alt="Avatar preview" class="img-thumbnail" style="max-height: 120px;" />
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+          Guardar cambios
+        </button>
+      </form>
+    </c-card-body>
+  </c-card>
+  

@@ -1,1 +1,0 @@
-import{Y as n,g as a}from"./chunk-4SEB7VVV.js";var t=class t{constructor(){this.staffSubject=new a(null)}setStaff(e){this.staffSubject.next(e)}getStaff(){return this.staffSubject.asObservable()}getStaffValue(){return this.staffSubject.value}};t.\u0275fac=function(f){return new(f||t)},t.\u0275prov=n({token:t,factory:t.\u0275fac,providedIn:"root"});var r=t;export{r as a};

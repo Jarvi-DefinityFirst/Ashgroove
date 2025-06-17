@@ -1,0 +1,54 @@
+<c-card>
+    <c-card-header>
+      <strong>Add new procedure</strong>
+    </c-card-header>
+    <c-card-body>
+      <form #procedureForm="ngForm" (ngSubmit)="guardar(procedureForm)">
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="procedimiento.name"
+            name="name"
+            required
+            #name="ngModel"
+          />
+          <div *ngIf="name.invalid && name.touched" class="text-danger small">
+            Name  is required
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Category</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="procedimiento.category"
+            name="category"
+            required
+            #category="ngModel"
+          />
+          <div *ngIf="category.invalid && category.touched" class="text-danger small">
+            Category is required
+          </div>
+        </div>
+
+        <input type="file" (change)="onFileSelected($event)" accept="application/pdf" />
+
+        <pdf-viewer
+        *ngIf="pdfSrc"
+        [src]="pdfSrc"
+        [render-text]="true"
+        [show-all]="true"
+        [original-size]="true"
+        style="height: 500px; display: block;"
+      ></pdf-viewer>
+
+
+        <button type="submit" class="btn btn-primary" [disabled]="procedureForm.invalid">
+          Save
+        </button>
+      </form>
+    </c-card-body>
+  </c-card>
