@@ -1,0 +1,49 @@
+<div class="mb-4">
+    <h3 class="mb-3">Staff Training - Safety & Health</h3>
+  
+    <!-- Select staff -->
+    <div class="mb-4">
+      <label class="form-label">Select an employee:</label>
+      <select class="form-select" [(ngModel)]="selectedStaff" (change)="resetView()">
+        <option *ngFor="let s of staffList" [ngValue]="s">{{ s.name }}</option>
+      </select>
+    </div>
+  
+    <div *ngIf="selectedStaff">
+      <!-- Avatar -->
+      <div class="text-center mb-4">
+        <c-avatar [src]="selectedStaff.avatar" size="96px" />
+        <h5 class="mt-2">{{ selectedStaff.name }}</h5>
+      </div>
+  
+      <!-- Overall progress -->
+      <div class="mb-3">
+        <div class="d-flex justify-content-between mb-1">
+          <strong>Overall Progress</strong>
+          <small>{{ getOverallProgress() }}%</small>
+        </div>
+        <c-progress [value]="getOverallProgress()" [color]="getProgressColor()" height="6px"></c-progress>
+      </div>
+  
+      <!-- Course categories -->
+      <div *ngFor="let category of selectedStaff.courses" class="mb-4">
+        <div class="d-flex justify-content-between mb-1">
+          <strong>{{ category.category }}</strong>
+          <small>{{ getCategoryProgress(category) }}%</small>
+        </div>
+        <c-progress [value]="getCategoryProgress(category)" color="info" height="6px"></c-progress>
+  
+        <!-- Course list -->
+        <ul class="list-group list-group-flush mt-2">
+          <li *ngFor="let course of category.items" class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+              <input type="checkbox" [(ngModel)]="course.done" (change)="saveProgress()" />
+              <span>{{ course.name }}</span>
+            </div>
+            <span class="text-muted small">{{ course.done ? 'Completed' : 'Pending' }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  

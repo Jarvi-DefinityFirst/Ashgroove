@@ -41,6 +41,13 @@
             <td (click)="$event.stopPropagation()">
               <div class="d-flex gap-2">
                 <button
+                class="btn btn-sm btn-outline-primary"
+                (click)="descargarPDF(p)"
+                title="Download PDF"
+              >
+                <svg cIcon name="cil-cloud-download"></svg>
+              </button>
+                <button
                   class="btn btn-sm btn-outline-secondary"
                   (click)="editarProcedimiento(p)"
                   title="Editar"

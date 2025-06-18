@@ -17,4 +17,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./edit-user/edit-user.component').then(m => m.EditUserComponent),
   },
+  
+  {
+    path: 'training',
+    loadComponent: () =>
+      import('../staff-training/staff-training.component').then(m => m.StaffTrainingComponent),
+  },
+
 ];

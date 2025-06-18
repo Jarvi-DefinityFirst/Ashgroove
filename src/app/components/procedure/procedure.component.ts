@@ -34,9 +34,12 @@ export class ProcedureComponent implements OnInit {
       this.procedimientos = JSON.parse(stored);
     } else {
       this.procedimientos = [
-        { id: 1, name: 'Spotter Safety', category: 'Operation', user: 'Jarvi Ruiz', modificationDate: '16/06/2025', content: 'Content' },
-        { id: 2, name: 'Lightning', category: 'Ilumination', user: 'Jarvi Ruiz', modificationDate: '16/06/2025', content: 'Content' },
-        { id: 3, name: 'Other example', category: 'Example', user: 'Jarvi Ruiz', modificationDate: '16/06/2025', content: 'Content' }
+        { id: 1, name: 'Spotter Safety', category: 'Operation', user: 'Ayrton Ruiz', modificationDate: '16/6/2025', content: '' },
+        { id: 2, name: 'Lightning', category: 'Illumination', user: 'Ayrton Ruiz', modificationDate: '16/6/2025', content: '' },
+        { id: 3, name: 'Machine Lockout/Tagout', category: 'Maintenance', user: 'Ayrton Ruiz', modificationDate: '16/6/2025', content: '' },
+        { id: 4, name: 'Cement Silo Cleaning Protocol', category: 'Safety', user: 'Ayrton Ruiz', modificationDate: '16/6/2025', content: '' },
+        { id: 5, name: 'Forklift Operation Guidelines', category: 'Logistics', user: 'Ayrton Ruiz', modificationDate: '16/6/2025', content: '' },
+        { id: 6, name: 'Dust Suppression Procedure', category: 'Environmental', user: 'Ayrton Ruiz', modificationDate: '16/6/2025', content: '' }
       ];
       localStorage.setItem('demo_procedimientos', JSON.stringify(this.procedimientos));
     }
@@ -70,6 +73,20 @@ export class ProcedureComponent implements OnInit {
     this.nameFilter = '';
     localStorage.setItem('demo_procedimientos', JSON.stringify(this.procedimientos));
     console.log('Procedimiento eliminado:', p);
+  }
+
+  descargarPDF(p: any): void {
+    console.log(p);
+    
+    if (!p.content || p.content.trim() === '') {
+      alert('No PDF available for this procedure.');
+      return;
+    }
+  
+    const link = document.createElement('a');
+    link.href = p.content; // base64 PDF
+    link.download = `${p.name.replace(/\s+/g, '_')}.pdf`;
+    link.click();
   }
 
   verDetalle(p: any) {

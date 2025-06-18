@@ -25,7 +25,7 @@ export class ProcedureAddComponent {
     id: 0,
     name: '',
     category: '',
-    user: 'Jarvi Ruiz',
+    user: 'Ayrton Ruiz',
     modificationDate: new Date().toLocaleDateString('es-MX'),
     content: ''
   };
