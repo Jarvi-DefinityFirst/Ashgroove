@@ -20,15 +20,6 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-user' },
     children: [
       {
-        name: 'Managment',
-        url: '/staff',
-        icon: 'nav-icon-bullet',
-        badge: {
-          color: 'info',
-          text: 'DEMO'
-        },
-      },
-      {
         name: 'Training',
         url: '/staff/training',
         icon: 'nav-icon-bullet',

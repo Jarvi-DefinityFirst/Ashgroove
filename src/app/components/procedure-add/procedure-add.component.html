@@ -1,42 +1,143 @@
 <c-card>
-    <c-card-header>
-      <strong>Add new procedure</strong>
-    </c-card-header>
-    <c-card-body>
-      <form #procedureForm="ngForm" (ngSubmit)="guardar(procedureForm)">
-        <div class="mb-3">
-          <label class="form-label">Name</label>
+  <c-card-header>
+    <strong>Add new procedure</strong>
+  </c-card-header>
+  <c-card-body>
+    <form #procedureForm="ngForm" (ngSubmit)="guardar(procedureForm)">
+      
+      <!-- NAME -->
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="procedimiento.name"
+          name="name"
+          required
+          #name="ngModel"
+        />
+        <div *ngIf="name.invalid && name.touched" class="text-danger small">
+          Name is required
+        </div>
+      </div>
+
+      <!-- ID -->
+    <div class="mb-3">
+      <label class="form-label">SOP ID</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="procedimiento.id"
+        name="id"
+        required
+        #id="ngModel"
+    />
+      <div *ngIf="id.invalid && id.touched" class="text-danger small">
+        SOP ID is required
+      </div>
+    </div>
+
+ 
+      <!-- PLANT AREA -->
+      <div class="mb-3">
+        <label class="form-label">Plant Area</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="procedimiento.plantArea"
+          name="plantArea"
+          required
+          #plantArea="ngModel"
+        />
+        <div *ngIf="plantArea.invalid && plantArea.touched" class="text-danger small">
+          Plant Area is required
+        </div>
+      </div>
+
+      <!-- DEPARTMENT -->
+      <div class="mb-3">
+        <label class="form-label">Department</label>
+        <select
+          class="form-select"
+          [(ngModel)]="procedimiento.department"
+          name="department"
+          required
+          #department="ngModel"
+        >
+          <option [ngValue]="''" disabled selected>Select department</option>
+          <option *ngFor="let d of departamentos" [ngValue]="d.name">
+            {{ d.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- STATUS -->
+      <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select
+          class="form-select"
+          [(ngModel)]="procedimiento.status"
+          name="status"
+          required
+          #status="ngModel"
+        >
+          <option value="Not updated">Not updated</option>
+          <option value="Updated">Updated</option>
+          <option value="Updated">Does Not Exist</option>
+        </select>
+      </div>
+
+      <!-- LAST UPDATE (manual) -->
+      <div class="mb-3">
+        <label class="form-label">Last Update</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="procedimiento.modificationDate"
+          name="modificationDate"
+          required
+        />
+      </div>
+
+      <!-- JOB POSITIONS -->
+      <div class="mb-3">
+        <label class="form-label">Job Positions</label>
+        <div class="d-flex mb-2">
           <input
             type="text"
-            class="form-control"
-            [(ngModel)]="procedimiento.name"
-            name="name"
-            required
-            #name="ngModel"
+            class="form-control me-2"
+            [(ngModel)]="nuevaJob"
+            name="nuevaJob"
+            placeholder="Enter job position"
           />
-          <div *ngIf="name.invalid && name.touched" class="text-danger small">
-            Name  is required
-          </div>
+          <button type="button" class="btn btn-outline-primary" (click)="agregarJob()">
+            Add
+          </button>
         </div>
+        <ul class="list-group" *ngIf="procedimiento.jobPosition.length > 0">
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let job of procedimiento.jobPosition; let i = index"
+          >
+            {{ job }}
+            <button class="btn btn-sm btn-danger" type="button" (click)="quitarJob(i)">X</button>
+          </li>
+        </ul>
+      </div>
 
-        <div class="mb-3">
-          <label class="form-label">Category</label>
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="procedimiento.category"
-            name="category"
-            required
-            #category="ngModel"
-          />
-          <div *ngIf="category.invalid && category.touched" class="text-danger small">
-            Category is required
-          </div>
-        </div>
+      <!-- PDF UPLOAD -->
+      <div class="mb-3">
+        <label class="form-label">PDF Upload</label>
+        <input
+          type="file"
+          class="form-control"
+          (change)="onFileSelected($event)"
+          accept="application/pdf"
+        />
+      </div>
 
-        <input type="file" (change)="onFileSelected($event)" accept="application/pdf" />
-
-        <pdf-viewer
+      <!-- PDF VIEWER -->
+      <pdf-viewer
         *ngIf="pdfSrc"
         [src]="pdfSrc"
         [render-text]="true"
@@ -45,10 +146,10 @@
         style="height: 500px; display: block;"
       ></pdf-viewer>
 
-
-        <button type="submit" class="btn btn-primary" [disabled]="procedureForm.invalid">
-          Save
-        </button>
-      </form>
-    </c-card-body>
-  </c-card>
+      <!-- SUBMIT -->
+     <button type="submit" class="btn btn-primary" [disabled]="procedureForm.invalid">
+        Save
+      </button>
+    </form>
+  </c-card-body>
+</c-card>

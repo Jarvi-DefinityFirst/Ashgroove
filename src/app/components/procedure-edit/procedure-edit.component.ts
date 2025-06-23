@@ -2,10 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CardBodyComponent, CardComponent, CardHeaderComponent } from '@coreui/angular';
+import {
+  CardBodyComponent,
+  CardComponent,
+  CardHeaderComponent
+} from '@coreui/angular';
 import { QuillModule } from 'ngx-quill';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ProcedureService } from '../../services/procedure.service';
+import { DepartamentoInfo } from '../../services/procedure.service';
 
 @Component({
   selector: 'app-procedure-edit',
@@ -25,10 +30,17 @@ import { ProcedureService } from '../../services/procedure.service';
 export class ProcedureEditComponent implements OnInit {
   procedimiento: any = null;
   pdfSrc: string | null = null;
+  departamentos: DepartamentoInfo[] = [];
+  nuevaJob: string = '';
 
-  constructor(private router: Router, private procedureService: ProcedureService) {}
+  constructor(
+    private router: Router,
+    private procedureService: ProcedureService
+  ) {}
 
   ngOnInit(): void {
+    this.departamentos = this.procedureService.getDepartamentos();
+
     this.procedureService.getProcedimiento().subscribe(p => {
       this.procedimiento = { ...p };
       if (this.procedimiento.content?.startsWith('data:application/pdf')) {
@@ -40,9 +52,11 @@ export class ProcedureEditComponent implements OnInit {
   }
 
   guardar(form: NgForm) {
-    if (form.invalid || !this.pdfSrc) return;
+    if (form.invalid) return;
 
-    this.procedimiento.content = this.pdfSrc;
+     if(this.pdfSrc){
+      this.procedimiento.content = this.pdfSrc;
+    }
 
     const stored = localStorage.getItem('demo_procedimientos');
     const lista = stored ? JSON.parse(stored) : [];
@@ -63,10 +77,26 @@ export class ProcedureEditComponent implements OnInit {
       reader.onload = () => {
         const base64 = reader.result as string;
         this.pdfSrc = base64;
-        this.procedimiento.content = base64; // importante
+        this.procedimiento.content = base64;
       };
-      reader.readAsDataURL(file); // no usar ArrayBuffer
+      reader.readAsDataURL(file);
     }
+  }
+
+  agregarJob(): void {
+  const trimmed = this.nuevaJob.trim();
+
+  if (!this.procedimiento.jobPosition) {
+    this.procedimiento.jobPosition = []; 
+  }
+
+  if (trimmed && !this.procedimiento.jobPosition.includes(trimmed)) {
+    this.procedimiento.jobPosition.push(trimmed);
+    this.nuevaJob = '';
+  }
 }
 
+  quitarJob(index: number): void {
+    this.procedimiento.jobPosition.splice(index, 1);
+  }
 }

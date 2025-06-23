@@ -1,6 +1,9 @@
 <!--<c-header class="mb-4 d-print-none" position="sticky">-->
 <ng-container>
-  <c-container [fluid]="true" class="border-bottom px-4">
+  <c-container [fluid]="true" class="border-bottom px-4 d-flex align-items-center justify-content-between">
+
+  <!-- Hamburguesa a la izquierda -->
+  <div class="d-flex align-items-center">
     <button
       [cSidebarToggle]="sidebarId()"
       cHeaderToggler
@@ -11,26 +14,21 @@
     >
       <svg cIcon name="cilMenu" size="lg"></svg>
     </button>
-   
-    
+  </div>
 
-    <c-header-nav class="ms-auto ms-md-0">
-      <div class="nav-item py-1">
-        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
-      </div>
-      <ng-container *ngTemplateOutlet="themeDropdown" />
-      <div class="nav-item py-1">
-        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
-      </div>
-    </c-header-nav>
+  <!-- Espaciador flexible para empujar los elementos a la derecha -->
+  <div class="flex-grow-1"></div>
 
-    <c-header-nav class="mx-0">
-      <ng-container *ngTemplateOutlet="userDropdown" />
-    </c-header-nav>
+  <!-- Icono de tema (sol) a la derecha -->
+  <div class="d-flex align-items-center">
+    <ng-container *ngTemplateOutlet="themeDropdown" />
+    <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+    <ng-container *ngTemplateOutlet="userDropdown" />
+  </div>
 
-  </c-container>
+</c-container>
   <c-container [fluid]="true" class="px-4">
-    <c-breadcrumb-router />
+   
   </c-container>
 </ng-container>
 <!--</c-header>-->
@@ -41,7 +39,7 @@
       <c-avatar
         shape="rounded-1"
         [size]="'md'"
-        src="./assets/images/avatars/8.png"
+        src="./assets/images/avatars/2.jpg"
         status="success"
         textColor="primary"
         alt="User avatar"

@@ -50,7 +50,8 @@ export class LoginComponent {
   // Simulación de usuarios
   users = [
     { email: 'ashgrove@gmail.com', password: 'ash123' },
-    { email: 'ayrton@gmail.com', password: 'ayrton123' }
+    { email: 'ayrton@gmail.com', password: 'ayrton123' },
+    { email: 'noah.pounds@ashgrove.com', password: 'noahpoundsAdmin' },
   ];
 
   constructor(private router: Router) {}
